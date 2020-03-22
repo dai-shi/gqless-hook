@@ -133,4 +133,4 @@ PORT=8080 npm run examples:01_graqhqlhub
 and open <http://localhost:8080> in your web browser.
 
 You can also try them in codesandbox.io:
-[01](https://codesandbox.io/s/github/dai-shi/gqless-hook/tree/master/examples/01_graqhqlhub)
+[01](https://codesandbox.io/s/github/dai-shi/gqless-hook/tree/master/examples/01_graphqlhub)
