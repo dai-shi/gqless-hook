@@ -7,6 +7,7 @@
     "@types/react-dom": "latest",
     "react": "experimental",
     "react-dom": "experimental",
+    "gqless": "latest",
     "gqless-hook": "latest",
     "react-scripts": "latest",
     "typescript": "latest"
