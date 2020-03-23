@@ -40,8 +40,10 @@ Create .gqlessrc.json:
 Generate client:
 
 ```bash
-gqlite generate
+gqless generate
 ```
+
+(You need `npm install -D @gqless/cli` in advance.)
 
 ### Example Code
 
