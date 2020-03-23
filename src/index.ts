@@ -1,10 +1,15 @@
 import {
   useCallback,
   useLayoutEffect,
+  useEffect,
   useReducer,
   useRef,
 } from 'react';
-import { Client } from 'gqless';
+import {
+  Accessor,
+  Client,
+  accessorInterceptors,
+} from 'gqless';
 
 const isSSR = (
   typeof window === 'undefined'
@@ -37,6 +42,7 @@ export const useQuery = <Data>(client: Client<Data>): Data => {
       client.scheduler.commit.onFetched.then(resolve);
     });
   }
+
   const onActive = useCallback(() => {
     fetching.current = true;
   }, []);
@@ -53,5 +59,23 @@ export const useQuery = <Data>(client: Client<Data>): Data => {
       forceUpdate();
     }
   });
+
+  const updateUnlessFetching = useCallback(() => {
+    if (!fetching.current) {
+      forceUpdate();
+    }
+  }, []);
+  const onAccessor = useCallback((accessor: Accessor) => {
+    accessor.onDataChange.then(updateUnlessFetching);
+  }, [updateUnlessFetching]);
+  accessorInterceptors.add(onAccessor);
+  const timer = setTimeout(() => {
+    accessorInterceptors.delete(onAccessor);
+  }, 5 * 1000);
+  useEffect(() => {
+    clearTimeout(timer);
+    accessorInterceptors.delete(onAccessor);
+  });
+
   return client.query;
 };

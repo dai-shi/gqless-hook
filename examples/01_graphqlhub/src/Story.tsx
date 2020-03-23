@@ -1,12 +1,13 @@
 import React from 'react';
 import { HackerNewsItem } from './graphql';
+import { useFlasher } from './useFlasher';
 
 type Props = {
   story: HackerNewsItem;
 };
 
 const Story: React.FC<Props> = ({ story }) => (
-  <article>
+  <article ref={useFlasher()}>
     <h2>
       <a href={story.url || ''}>{story.title}</a>
     </h2>
