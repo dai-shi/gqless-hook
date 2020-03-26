@@ -1,7 +1,7 @@
 {
   "name": "gqless-hook",
   "description": "Yet another React hook for gqless",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "Daishi Kato",
   "repository": {
     "type": "git",
