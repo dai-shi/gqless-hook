@@ -23,4 +23,4 @@ const Story: React.FC<Props> = ({ story }) => (
   </article>
 );
 
-export default Story;
+export default React.memo(Story);
