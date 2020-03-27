@@ -58,7 +58,7 @@ type Props = {
   story: HackerNewsItem;
 };
 
-const Story: React.FC<Props> = ({ story }) => (
+const Story = React.memo<Props>(({ story }) => (
   <article>
     <h2>
       <a href={story.url || ''}>{story.title}</a>
@@ -73,7 +73,7 @@ const Story: React.FC<Props> = ({ story }) => (
       </a>
     </div>
   </article>
-);
+));
 
 const TopStories: React.FC = () => {
   const query = useQuery(client);
