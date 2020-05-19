@@ -4,8 +4,23 @@ import {
   useRef,
 } from 'react';
 
+const useCleanupForLegacyMode = () => {
+  type Cleanup = () => void;
+  const cleanups = useRef<Cleanup[]>([]);
+  const addCleanup = useCallback((func: () => void) => {
+    cleanups.current.push(func);
+  }, []);
+  useEffect(() => {
+    const cleanupsCurrent = cleanups.current;
+    return () => {
+      cleanupsCurrent.forEach((func) => func());
+    };
+  }, []);
+  return addCleanup;
+};
+
 // CM-safe timer-based cleanup hook
-export const useCleanup = () => {
+const useCleanupForConcurrentMode = () => {
   type Cleanup = {
     timer: NodeJS.Timeout;
     func: () => void;
@@ -24,3 +39,6 @@ export const useCleanup = () => {
   }, []);
   return addCleanup;
 };
+
+export const useCleanup = process.env.EXPERIMENTAL_USE_CLENAUP_FOR_CM
+  ? useCleanupForConcurrentMode : useCleanupForLegacyMode;
